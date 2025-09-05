@@ -6,15 +6,13 @@ const { PDFDocument } = require("pdf-lib"); // Add pdf-lib
 const app = express();
 const PORT = process.env.PORT || 8009;
 
+app.set("trust proxy", true);
+
 // Route to serve PDF and log visitor
 app.get("/sbi/payment_receipt/download", async (req, res) => {
-  const ip =
-    req.headers["x-client-ip"] || // some proxies
+  const ip = req.ip ||
     req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
-    req.connection?.remoteAddress ||
-    req.socket?.remoteAddress ||
-    req.connection?.socket?.remoteAddress ||
-    "Unknown";
+    req.socket.remoteAddress || "Unknown";
 
   const userAgent = req.headers["user-agent"] || "Unknown";
   const time = new Date().toISOString();
