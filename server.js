@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8009;
 app.get("/sbi/payment_receipt/download", async (req, res) => {
   const ip =
     req.headers["x-client-ip"] || // some proxies
-    req.headers["x-forwarded-for"]?.split(",")[0].trim() || // first forwarded IP
+    req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
     req.connection?.remoteAddress ||
     req.socket?.remoteAddress ||
     req.connection?.socket?.remoteAddress ||
@@ -23,7 +23,7 @@ app.get("/sbi/payment_receipt/download", async (req, res) => {
   const logEntry = `IP: ${ip} | User-Agent: ${userAgent} | Time: ${time}\n`;
   fs.appendFileSync("visitors.log", logEntry);
 
-  // Path to your PDF
+
   const pdfPath = path.join(__dirname, "payment_receipt.pdf");
 
   try {
