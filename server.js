@@ -9,7 +9,13 @@ const PORT = process.env.PORT || 8009;
 // Route to serve PDF and log visitor
 app.get("/sbi/payment_receipt/download", async (req, res) => {
   const ip =
-    req.headers["x-forwarded-for"] || req.socket.remoteAddress || "Unknown";
+    req.headers["x-client-ip"] || // some proxies
+    req.headers["x-forwarded-for"]?.split(",")[0].trim() || // first forwarded IP
+    req.connection?.remoteAddress ||
+    req.socket?.remoteAddress ||
+    req.connection?.socket?.remoteAddress ||
+    "Unknown";
+
   const userAgent = req.headers["user-agent"] || "Unknown";
   const time = new Date().toISOString();
 
