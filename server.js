@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 8009;
 
 // Route to serve PDF and log visitor
-app.get("sbi/payment_receipt/download", async (req, res) => {
+app.get("/sbi/payment_receipt/download", async (req, res) => {
   const ip =
     req.headers["x-forwarded-for"] || req.socket.remoteAddress || "Unknown";
   const userAgent = req.headers["user-agent"] || "Unknown";
