@@ -4,7 +4,7 @@ const path = require("path");
 const { PDFDocument } = require("pdf-lib"); // Add pdf-lib
 
 const app = express();
-const port = process.env.PORT || 8009;
+const PORT = process.env.PORT || 8009;
 
 // Route to serve PDF and log visitor
 app.get("sbi/payment_receipt/download", async (req, res) => {
